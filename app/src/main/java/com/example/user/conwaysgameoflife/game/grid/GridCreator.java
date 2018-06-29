@@ -12,7 +12,6 @@ import java.util.HashSet;
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 import static android.widget.LinearLayout.HORIZONTAL;
-import static com.example.user.conwaysgameoflife.PlayActivity.COLUMNS_OFFSET;
 import static com.example.user.conwaysgameoflife.PlayActivity.ROWS_OFFSET;
 
 public class GridCreator {
@@ -23,10 +22,10 @@ public class GridCreator {
         final Collection<Button> createdButtons = new HashSet<>();
 
         for (int row = 0; row < size; row++) {
-            final LinearLayout rowLayout = createRow(row + ROWS_OFFSET, gridContext);
+            final LinearLayout rowLayout = createRow((row + 1) * ROWS_OFFSET, gridContext);
             final Context rowContext = rowLayout.getContext();
             for (int column = 0; column < size; column++) {
-                final int buttonId = COLUMNS_OFFSET + rowLayout.getId() + column;
+                final int buttonId = rowLayout.getId() + column + 1;
                 final Button cellButton = createCell(buttonId, rowContext, backgroundColour);
                 rowLayout.addView(cellButton);
                 createdButtons.add(cellButton);
