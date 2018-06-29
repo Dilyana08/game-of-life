@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Conway`s Game of Life</string>
+    <string name="conway_s_game_of_life">Conway\'s \nGame of Life</string>
+    <string name="play_button">Play</string>
+    <string name="quit_button">Quit</string>
+    <string name="welcome_to_the_play_window">Welcome to the Play window</string>
+</resources>
