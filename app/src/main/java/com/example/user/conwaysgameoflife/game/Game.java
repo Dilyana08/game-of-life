@@ -28,6 +28,16 @@ public class Game {
         this.speedLevel = speedLevel;
     }
 
+    public boolean changePointState(final Point point) {
+        if (selectedPoints.contains(point)) {
+            selectedPoints.remove(point);
+            return false;
+        } else {
+            selectedPoints.add(point);
+            return true;
+        }
+    }
+
     public synchronized void start() {
         running = true;
         population = new Population(size, selectedPoints);
