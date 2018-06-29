@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import static com.example.user.conwaysgameoflife.utils.ButtonUtils.setActiveButtonColours;
+import static com.example.user.conwaysgameoflife.utils.ButtonUtils.setDefaultButtonColours;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -27,37 +30,26 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        setDefaultButtonColours(R.id.play_button);
-        setDefaultButtonColours(R.id.settings_button);
-        setDefaultButtonColours(R.id.quit_button);
+        setDefaultButtonColours(findViewById(R.id.play_button), getResources());
+        setDefaultButtonColours(findViewById(R.id.settings_button), getResources());
+        setDefaultButtonColours(findViewById(R.id.quit_button), getResources());
     }
 
-    private void goToPlay(@SuppressWarnings("unused") final View ignored){
-        setActiveButtonColours(R.id.play_button);
-        Intent intent = new Intent(this , PlayActivity.class);
+    private void goToPlay(@SuppressWarnings("unused") final View ignored) {
+        setActiveButtonColours(findViewById(R.id.play_button), getResources());
+        Intent intent = new Intent(this, PlayActivity.class);
         this.startActivity(intent);
     }
 
     private void goToSettings(@SuppressWarnings("unused") final View view) {
-        setActiveButtonColours(R.id.settings_button);
-        Intent intent = new Intent(this , SettingsActivity.class);
+        setActiveButtonColours(findViewById(R.id.settings_button), getResources());
+        Intent intent = new Intent(this, SettingsActivity.class);
         this.startActivity(intent);
     }
 
-    private void quitApp(@SuppressWarnings("unused") final View ignored){
-        setActiveButtonColours(R.id.quit_button);
+    private void quitApp(@SuppressWarnings("unused") final View ignored) {
+        setActiveButtonColours(findViewById(R.id.quit_button), getResources());
         finish();
     }
 
-    private void setDefaultButtonColours(final int id) {
-        final Button button = findViewById(id);
-        button.setBackgroundColor(getResources().getColor(R.color.colorMain));
-        button.setTextColor(getResources().getColor(R.color.colorBlack));
-    }
-
-    private void setActiveButtonColours(final int id) {
-        Button button = findViewById(id);
-        button.setBackgroundColor(getResources().getColor(R.color.colorBlack));
-        button.setTextColor(getResources().getColor(R.color.colorMain));
-    }
 }
