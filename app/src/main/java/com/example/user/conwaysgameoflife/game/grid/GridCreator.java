@@ -6,27 +6,35 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 
+import java.util.Collection;
+import java.util.HashSet;
+
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 import static android.widget.LinearLayout.HORIZONTAL;
-import static com.example.user.conwaysgameoflife.PlayActivity.CELLS_OFFSET;
+import static com.example.user.conwaysgameoflife.PlayActivity.COLUMNS_OFFSET;
 import static com.example.user.conwaysgameoflife.PlayActivity.ROWS_OFFSET;
 
 public class GridCreator {
 
-    public void createGrid(final TableLayout grid, final int size, final int backgroundColour) {
+    public Collection<Button> createGrid(final TableLayout grid, final int size, final int backgroundColour) {
         final Context gridContext = grid.getContext();
+
+        final Collection<Button> createdButtons = new HashSet<>();
 
         for (int row = 0; row < size; row++) {
             final LinearLayout rowLayout = createRow(row + ROWS_OFFSET, gridContext);
             final Context rowContext = rowLayout.getContext();
             for (int column = 0; column < size; column++) {
-                final int buttonId = CELLS_OFFSET + rowLayout.getId() + column;
+                final int buttonId = COLUMNS_OFFSET + rowLayout.getId() + column;
                 final Button cellButton = createCell(buttonId, rowContext, backgroundColour);
                 rowLayout.addView(cellButton);
+                createdButtons.add(cellButton);
             }
             grid.addView(rowLayout);
         }
+
+        return createdButtons;
     }
 
     private LinearLayout createRow(final int id, final Context context) {
