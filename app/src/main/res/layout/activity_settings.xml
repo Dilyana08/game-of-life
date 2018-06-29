@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/colorBlack"
+    tools:context=".SettingsActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -40,6 +43,7 @@
             android:textSize="16sp" />
 
         <RadioGroup
+            android:id="@+id/radioGroup"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginLeft="10dp"
@@ -52,21 +56,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:text="@string/red_color_choice" />
+                android:text="@string/red_color_choice"
+                android:textColor="@color/colorMain" />
 
             <RadioButton
                 android:id="@+id/greenRadioButton"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:text="@string/green_color_choice" />
+                android:text="@string/green_color_choice"
+                android:textColor="@color/colorMain" />
 
             <RadioButton
                 android:id="@+id/blueRadioButton"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:text="@string/blue_color_choice" />
+                android:text="@string/blue_color_choice"
+                android:textColor="@color/colorMain" />
 
         </RadioGroup>
 
@@ -97,8 +104,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.05"
-                android:max="10"
-                android:progress="1" />
+                android:max="9"
+                android:progress="0" />
 
         </LinearLayout>
 
@@ -123,16 +130,21 @@
                 android:textColor="@color/colorMain"
                 android:textSize="16sp" />
 
-            <EditText
-                android:id="@+id/bestResult"
+            <TextView
+                android:id="@+id/bestResultView"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:layout_weight="0.05"
-                android:background="@color/colorBlack"
-                android:ems="10"
-                android:inputType="numberSigned" />
+                android:layout_weight="0.01"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:fontFamily="@font/computer"
+                android:gravity="center"
+                android:textAppearance="@style/TextAppearance.AppCompat"
+                android:textColor="@color/colorMain"
+                android:textSize="16sp" />
+
         </LinearLayout>
 
         <Button
