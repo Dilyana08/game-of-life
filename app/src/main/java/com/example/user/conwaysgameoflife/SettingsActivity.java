@@ -32,12 +32,12 @@ public class SettingsActivity extends AppCompatActivity {
         speed = findViewById(R.id.speedBar);
         speedValue = speed.getProgress();
 
-        final Button settingsButton = findViewById(R.id.settings_button);
+        final Button settingsButton = findViewById(R.id.save_button);
         settingsButton.setOnClickListener(this::saveNewSettings);
     }
 
     private void saveNewSettings(@SuppressWarnings("unused") final View ignored) {
-        setActiveButtonColours(R.id.settings_button);
+        setActiveButtonColours(R.id.save_button);
 
         SharedPreferences settings = getSharedPreferences("settings", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = settings.edit();
@@ -46,9 +46,7 @@ public class SettingsActivity extends AppCompatActivity {
         editor.apply();
 
         Toast.makeText(this, "Settings were saved", Toast.LENGTH_LONG).show();
-
-        Intent intent = new Intent(this , MainActivity.class);
-        this.startActivity(intent);
+        finish();
     }
 
     private void setActiveButtonColours(final int id) {
