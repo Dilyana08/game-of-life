@@ -10,6 +10,7 @@ public class PlayActivity extends AppCompatActivity {
 
     public static final int ROWS_OFFSET = 1000;
     public static final int CELLS_OFFSET = 10000;
+    public static final int SIZE = 12;
 
     public final int GRID_ID = R.id.grid;
 
@@ -25,7 +26,7 @@ public class PlayActivity extends AppCompatActivity {
         setContentView(R.layout.activity_play);
 
         final TableLayout grid = findViewById(GRID_ID);
-        presenter.createGrid(grid, 8, R.color.colorBlack);
+        presenter.createGrid(grid, SIZE, R.color.colorBlack);
     }
 
 }
