@@ -5,6 +5,7 @@ import com.example.user.conwaysgameoflife.game.grid.Population;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Set;
 
 public class Game {
 
@@ -13,18 +14,20 @@ public class Game {
     private int speedLevel;
     private boolean running;
 
-    public Game(final Collection<Point> alivePoints, final int gridSize, final boolean running, final int speedLevel) {
-        this.population = new Population(gridSize, new HashSet<>(alivePoints));
-        this.running = running;
-        this.speedLevel = speedLevel;
-    }
+    private int generationNumber;
 
-    public void stop() {
-        running = false;
+    public Game(final Collection<Point> alivePoints, final int gridSize, final int speedLevel) {
+        this.population = new Population(gridSize, new HashSet<>(alivePoints));
+        this.running = false;
+        this.speedLevel = speedLevel;
     }
 
     public void start() {
         running = true;
+    }
+
+    public void stop() {
+        running = false;
     }
 
     public void resume() {
@@ -35,10 +38,18 @@ public class Game {
         return running;
     }
 
+    public int getGenerationNumber() {
+        return generationNumber;
+    }
+
     public Collection<Point> nextGeneration() {
         final Population newPopulation = population.nextGeneration();
         population = newPopulation;
-        return newPopulation.getVisible();
+        Set<Point> visible = newPopulation.getVisible();
+        if (!visible.isEmpty()) {
+            generationNumber++;
+        }
+        return visible;
     }
 
     public int getInterval() {
