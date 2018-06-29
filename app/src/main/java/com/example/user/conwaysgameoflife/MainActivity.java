@@ -16,20 +16,31 @@ public class MainActivity extends AppCompatActivity {
         final Button playButton = findViewById(R.id.play_button);
         playButton.setOnClickListener(this::goToPlay);
 
+        final Button settingsButton = findViewById(R.id.settings_button);
+        settingsButton.setOnClickListener(this::goToSettings);
+
         final Button quitButton = findViewById(R.id.quit_button);
         quitButton.setOnClickListener(this::quitApp);
     }
+
 
     @Override
     protected void onResume() {
         super.onResume();
         setDefaultButtonColours(R.id.play_button);
+        setDefaultButtonColours(R.id.settings_button);
         setDefaultButtonColours(R.id.quit_button);
     }
 
     private void goToPlay(@SuppressWarnings("unused") final View ignored){
         setActiveButtonColours(R.id.play_button);
         Intent intent = new Intent(this , PlayActivity.class);
+        this.startActivity(intent);
+    }
+
+    private void goToSettings(@SuppressWarnings("unused") final View view) {
+        setActiveButtonColours(R.id.settings_button);
+        Intent intent = new Intent(this , SettingsActivity.class);
         this.startActivity(intent);
     }
 
@@ -40,13 +51,13 @@ public class MainActivity extends AppCompatActivity {
 
     private void setDefaultButtonColours(final int id) {
         final Button button = findViewById(id);
-        button.setBackgroundColor(getResources().getColor(R.color.colorGreen));
+        button.setBackgroundColor(getResources().getColor(R.color.colorMain));
         button.setTextColor(getResources().getColor(R.color.colorBlack));
     }
 
     private void setActiveButtonColours(final int id) {
         Button button = findViewById(id);
         button.setBackgroundColor(getResources().getColor(R.color.colorBlack));
-        button.setTextColor(getResources().getColor(R.color.colorGreen));
+        button.setTextColor(getResources().getColor(R.color.colorMain));
     }
 }

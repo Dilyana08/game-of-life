@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorBlack">#000000</color>
-    <color name="colorGreen">#078e00</color>
+    <color name="colorMain">@color/Green</color>
     <color name="colorWhite">#ffffff</color>
+
+    <color name="Red">#a00000</color>
+    <color name="Green">#078e00</color>
+    <color name="Blue">#060d97</color>
+
 </resources>

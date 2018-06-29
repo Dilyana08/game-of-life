@@ -4,4 +4,11 @@
     <string name="play_button">Play</string>
     <string name="quit_button">Quit</string>
     <string name="welcome_to_the_play_window">Welcome to the Play window</string>
+    <string name="settings_button">Settings</string>
+    <string name="save_button">Save</string>
+    <string name="best_result">Best result</string>
+    <string name="choose_speed">Choose speed</string>
+    <string name="blue_color_choice">Blue</string>
+    <string name="green_color_choice">Green</string>
+    <string name="red_color_choice">Red</string>
 </resources>

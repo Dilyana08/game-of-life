@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/settingsMenu"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_weight="0.5"
+            android:fontFamily="@font/computer"
+            android:gravity="center"
+            android:text="@string/settings_button"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:textColor="@color/colorMain"
+            android:textSize="28sp" />
+
+        <TextView
+            android:id="@+id/colorRadio"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_weight="0.15"
+            android:fontFamily="@font/computer"
+            android:gravity="center"
+            android:text="Choose color"
+            android:textAppearance="@style/TextAppearance.AppCompat"
+            android:textColor="@color/colorMain"
+            android:textSize="16sp" />
+
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:baselineAligned="false"
+            android:orientation="vertical">
+
+            <RadioButton
+                android:id="@+id/redRadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="@string/red_color_choice" />
+
+            <RadioButton
+                android:id="@+id/greenRadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="@string/green_color_choice" />
+
+            <RadioButton
+                android:id="@+id/blueRadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:text="@string/blue_color_choice" />
+
+        </RadioGroup>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/speedBarText"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_weight="0.02"
+                android:fontFamily="@font/computer"
+                android:gravity="center"
+                android:text="@string/choose_speed"
+                android:textAppearance="@style/TextAppearance.AppCompat"
+                android:textColor="@color/colorMain"
+                android:textSize="16sp" />
+
+            <SeekBar
+                android:id="@+id/speedBar"
+                style="@style/Widget.AppCompat.SeekBar.Discrete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.05"
+                android:max="10"
+                android:progress="1" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/bestResultText"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_weight="0.01"
+                android:fontFamily="@font/computer"
+                android:gravity="center"
+                android:text="@string/best_result"
+                android:textAppearance="@style/TextAppearance.AppCompat"
+                android:textColor="@color/colorMain"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/bestResult"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_weight="0.05"
+                android:background="@color/colorBlack"
+                android:ems="10"
+                android:inputType="numberSigned" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/save_button"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_weight="0.5"
+            android:background="@color/colorMain"
+            android:fontFamily="@font/computer"
+            android:gravity="center_vertical|center_horizontal"
+            android:text="@string/save_button"
+            android:textColor="@color/colorBlack"
+            android:textSize="24sp"
+            android:visibility="visible" />
+
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>
