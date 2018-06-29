@@ -7,7 +7,7 @@
 
     <string name="pause">Pause</string>
     <string name="start">Start</string>
-    <string name="generations">Generation</string>
+    <string name="generations">Generation:</string>
     <string name="clear_grid">Clear Grid</string>
     <string name="next">Next</string>
 
