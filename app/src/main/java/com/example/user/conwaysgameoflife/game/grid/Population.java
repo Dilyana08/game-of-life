@@ -1,4 +1,4 @@
-package com.example.user.conwaysgameoflife.grid;
+package com.example.user.conwaysgameoflife.game.grid;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -25,17 +25,13 @@ public class Population {
         return visible;
     }
 
-    private Set<Point> generatePoints() {
-        final Set<Point> allPoints = new HashSet<>();
-
-        for (int row = -1; row <= size; row++) {
-            for (int column = -1; column <= size; column++) {
-                final Point point = new Point(row, column);
-                allPoints.add(point);
+    public boolean isAlive() {
+        for (Point alive : living) {
+            if (isVisible(alive)) {
+                return true;
             }
         }
-
-        return allPoints;
+        return false;
     }
 
     public Population nextGeneration() {
@@ -61,21 +57,25 @@ public class Population {
         return new Population(size, allPoints);
     }
 
+    private Set<Point> generatePoints() {
+        final Set<Point> allPoints = new HashSet<>();
+
+        for (int row = -1; row <= size; row++) {
+            for (int column = -1; column <= size; column++) {
+                final Point point = new Point(row, column);
+                allPoints.add(point);
+            }
+        }
+
+        return allPoints;
+    }
+
     private int distanceBetween(final Point a, final Point b) {
         return abs(a.getColumn() - b.getColumn()) + abs(a.getRow() + b.getRow());
     }
 
     private boolean shouldBeDead(final int liveNeighbours, final boolean isAliveNow) {
         return !(liveNeighbours < 2 || liveNeighbours > 3 || (liveNeighbours == 2 && !isAliveNow));
-    }
-
-    public boolean isAlive() {
-        for (Point alive : living) {
-            if (isVisible(alive)) {
-                return true;
-            }
-        }
-        return false;
     }
 
     private boolean isVisible(final Point point) {

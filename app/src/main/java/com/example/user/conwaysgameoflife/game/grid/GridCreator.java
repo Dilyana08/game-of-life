@@ -1,4 +1,4 @@
-package com.example.user.conwaysgameoflife.grid;
+package com.example.user.conwaysgameoflife.game.grid;
 
 import android.content.Context;
 import android.view.Gravity;

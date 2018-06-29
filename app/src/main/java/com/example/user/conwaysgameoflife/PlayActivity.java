@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TableLayout;
 
-import com.example.user.conwaysgameoflife.grid.GridCreator;
+import com.example.user.conwaysgameoflife.game.grid.GridCreator;
 
 public class PlayActivity extends AppCompatActivity {
 

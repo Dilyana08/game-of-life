@@ -1,4 +1,4 @@
-package com.example.user.conwaysgameoflife.grid;
+package com.example.user.conwaysgameoflife.game.grid;
 
 public class Point {
     private final int row;
