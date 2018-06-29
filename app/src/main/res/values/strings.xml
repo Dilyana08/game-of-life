@@ -6,6 +6,7 @@
     <string name="welcome_to_the_play_window">Welcome to the Play window</string>
 
     <string name="pause">Pause</string>
+    <string name="start">Start</string>
     <string name="generations">Generation</string>
     <string name="clear_grid">Clear Grid</string>
     <string name="next">Next</string>
