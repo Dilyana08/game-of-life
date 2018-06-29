@@ -4,6 +4,12 @@
     <string name="play_button">Play</string>
     <string name="quit_button">Quit</string>
     <string name="welcome_to_the_play_window">Welcome to the Play window</string>
+
+    <string name="pause">Pause</string>
+    <string name="generations">Generation</string>
+    <string name="clear_grid">Clear Grid</string>
+    <string name="next">Next</string>
+
     <string name="settings_button">Settings</string>
     <string name="save_button">Save</string>
     <string name="best_result">Best result</string>
