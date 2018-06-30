@@ -19,6 +19,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     private int chosenRadioButtonId;
     private int speedValue;
+    private int sizeValue;
     private SharedPreferences settings;
 
     @Override
@@ -52,9 +53,10 @@ public class SettingsActivity extends AppCompatActivity {
         speed.setMax(10);
         speed.setProgress(speedVal);
 
-        int bestRes = settings.getInt("bestResults", 0);
-        TextView bestResult = findViewById(R.id.bestResultView);
-        bestResult.setText("" + bestRes);
+        int sizeVal = settings.getInt("size", 4);
+        SeekBar size = findViewById(R.id.sizeBar);
+        size.setMax(7);
+        size.setProgress(sizeVal);
     }
 
     private void changeColours() {
@@ -78,11 +80,8 @@ public class SettingsActivity extends AppCompatActivity {
         TextView chooseSpeed = findViewById(R.id.speedBarText);
         chooseSpeed.setTextColor(getResources().getColor(colorId));
 
-        TextView bestResultsText = findViewById(R.id.bestResultText);
-        bestResultsText.setTextColor(getResources().getColor(colorId));
-
-        TextView bestResult = findViewById(R.id.bestResultView);
-        bestResult.setTextColor(getResources().getColor(colorId));
+        TextView chooseSize = findViewById(R.id.matrixSize);
+        chooseSize.setTextColor(getResources().getColor(colorId));
     }
 
 
@@ -103,9 +102,13 @@ public class SettingsActivity extends AppCompatActivity {
         SeekBar speed = findViewById(R.id.speedBar);
         speedValue = speed.getProgress();
 
+        SeekBar size = findViewById(R.id.sizeBar);
+        sizeValue = size.getProgress();
+
         SharedPreferences.Editor editor = settings.edit();
         editor.putInt("colorId", chosenRadioButtonId);
         editor.putInt("interval", speedValue);
+        editor.putInt("size", sizeValue);
         editor.apply();
     }
 }
