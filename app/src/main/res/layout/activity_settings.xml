@@ -103,9 +103,9 @@
                 style="@style/Widget.AppCompat.SeekBar.Discrete"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.05"
-                android:max="9"
-                android:progress="0" />
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_weight="0.05" />
 
         </LinearLayout>
 
@@ -134,12 +134,13 @@
                 android:id="@+id/bestResultView"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="0.01"
+                android:layout_marginBottom="20dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
+                android:layout_weight="0.01"
                 android:fontFamily="@font/computer"
+                android:text=""
                 android:gravity="center"
                 android:textAppearance="@style/TextAppearance.AppCompat"
                 android:textColor="@color/colorMain"
