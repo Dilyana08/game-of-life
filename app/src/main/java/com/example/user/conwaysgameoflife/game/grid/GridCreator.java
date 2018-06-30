@@ -6,13 +6,15 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 
+import com.example.user.conwaysgameoflife.game.PointsConverter;
+
 import java.util.Collection;
 import java.util.HashSet;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 import static android.widget.LinearLayout.HORIZONTAL;
-import static com.example.user.conwaysgameoflife.PlayActivity.ROWS_OFFSET;
+import static com.example.user.conwaysgameoflife.game.PointsConverter.getRowId;
 
 public class GridCreator {
 
@@ -22,10 +24,10 @@ public class GridCreator {
         final Collection<Button> createdButtons = new HashSet<>();
 
         for (int row = 0; row < size; row++) {
-            final LinearLayout rowLayout = createRow((row + 1) * ROWS_OFFSET, gridContext);
+            final LinearLayout rowLayout = createRow(getRowId(row), gridContext);
             final Context rowContext = rowLayout.getContext();
             for (int column = 0; column < size; column++) {
-                final int buttonId = rowLayout.getId() + column + 1;
+                final int buttonId = PointsConverter.getCellId(rowLayout.getId(), column);
                 final Button cellButton = createCell(buttonId, rowContext, backgroundColour);
                 rowLayout.addView(cellButton);
                 createdButtons.add(cellButton);
