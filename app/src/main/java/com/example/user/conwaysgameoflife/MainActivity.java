@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        setCurrentSettings();
         setDefaultButtonColours(findViewById(R.id.play_button), getResources(), settings);
         setDefaultButtonColours(findViewById(R.id.settings_button), getResources(), settings);
         setDefaultButtonColours(findViewById(R.id.quit_button), getResources(), settings);

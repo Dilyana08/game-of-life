@@ -37,6 +37,7 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        setCurrentSettings();
         ButtonUtils.setDefaultButtonColours(findViewById(R.id.save_button), getResources(), settings);
     }
 

@@ -30,12 +30,16 @@ public class ColorUtils {
         switch (colorButtonId) {
             case R.id.redRadioButton:
                 logo.setImageResource(R.drawable.red);
+                break;
             case R.id.greenRadioButton:
                 logo.setImageResource(R.drawable.green);
+                break;
             case R.id.blueRadioButton:
                 logo.setImageResource(R.drawable.blue);
+                break;
             default:
                 logo.setImageResource(R.drawable.green);
+                break;
         }
     }
 }
