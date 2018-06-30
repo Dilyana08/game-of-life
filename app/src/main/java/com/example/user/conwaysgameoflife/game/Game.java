@@ -3,7 +3,6 @@ package com.example.user.conwaysgameoflife.game;
 import com.example.user.conwaysgameoflife.game.grid.Point;
 import com.example.user.conwaysgameoflife.game.grid.Population;
 
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -64,10 +63,11 @@ public class Game {
         return generationNumber;
     }
 
-    public synchronized Collection<Point> nextGeneration() {
+    public synchronized boolean nextGeneration() {
+        System.out.println("Stay'n alive");
         if (!population.isAlive()) {
             stop();
-            return emptySet();
+            return false;
         }
         final Population newPopulation = population.nextGeneration();
         population = newPopulation;
@@ -75,10 +75,10 @@ public class Game {
         if (!visible.isEmpty()) {
             generationNumber++;
         }
-        return visible;
+        return true;
     }
 
-    public synchronized boolean isAlive(final Point point){
+    public synchronized boolean isAlive(final Point point) {
         return population.isAlive(point);
     }
 

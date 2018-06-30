@@ -15,6 +15,7 @@ import com.example.user.conwaysgameoflife.game.grid.GridCreator;
 import com.example.user.conwaysgameoflife.game.grid.Point;
 
 import java.util.Collection;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import static com.example.user.conwaysgameoflife.game.PointsConverter.getPoint;
 import static com.example.user.conwaysgameoflife.utils.ButtonUtils.drawGridButton;
@@ -23,7 +24,7 @@ import static com.example.user.conwaysgameoflife.utils.ButtonUtils.setDefaultBut
 
 public class PlayActivity extends AppCompatActivity {
 
-    public static final int SIZE = 12;
+    public static final int SIZE = 15;
 
     // @TODO get from properties
     public static final int SPEED_LEVEL = 10;
@@ -32,12 +33,12 @@ public class PlayActivity extends AppCompatActivity {
 
     private final GridCreator presenter;
     private final Game game;
-    private boolean isGameStarted;
+    private AtomicBoolean isGameStarted;
 
     private Renderer renderer;
 
     public PlayActivity() {
-        isGameStarted = false;
+        isGameStarted = new AtomicBoolean(false);
         presenter = new GridCreator();
         game = new Game(SIZE, SPEED_LEVEL);
     }
@@ -58,23 +59,79 @@ public class PlayActivity extends AppCompatActivity {
 
         final Button clearButton = findViewById(R.id.clearButton);
         clearButton.setOnClickListener(this::registerClearButton);
+
+        final Button nextButton = findViewById(R.id.nextButton);
+        nextButton.setOnClickListener(this::registerNextButton);
+
+        final Button playButton = findViewById(R.id.startButton);
+        playButton.setOnClickListener(this::registerPlayButton);
+
         handleGenerations();
     }
 
     private void registerClearButton(final View view) {
-        if (game.isRunning()) {
+        if (isGameStarted.get()) {
             return;
         }
         final Button button = (Button) view;
-        setActiveButtonColours(button, getResources());
 
         game.clear();
         renderer.render(game);
-        new Handler().postDelayed(() -> setDefaultButtonColours(button, getResources()), 500);
+        drawButtonClicked(button);
+    }
+
+    private void registerPlayButton(final View view) {
+
+
+        final boolean result = isGameStarted.compareAndSet(false, true);
+        final Button button = (Button) view;
+        if (result) {
+            button.setText(R.string.pause);
+            game.start();
+            gameLoop();
+        } else if (game.isRunning()) {
+            game.stop();
+            button.setText(R.string.resume);
+        } else {
+            button.setText(R.string.pause);
+            game.resume();
+            gameLoop();
+        }
+
+        drawButtonClicked(button);
+    }
+
+    private void gameLoop() {
+        final Handler handler = new Handler();
+        final Runnable step = new Runnable() {
+            @Override
+            public void run() {
+                if (!game.isRunning()) {
+                    return;
+                }
+                if (game.nextGeneration()) {
+                    renderer.render(game);
+                    handleGenerations();
+                }
+                handler.postDelayed(this, game.getInterval());
+            }
+        };
+
+        handler.post(step);
+    }
+
+    private void registerNextButton(final View view) {
+        if (game.isRunning() || !isGameStarted.get()) {
+            return;
+        }
+        game.nextGeneration();
+        renderer.render(game);
+        handleGenerations();
+        drawButtonClicked((Button) view);
     }
 
     private void registerGridButton(final View view) {
-        if (game.isRunning()) {
+        if (isGameStarted.get()) {
             return;
         }
         final Button clicked = (Button) view;
@@ -93,4 +150,14 @@ public class PlayActivity extends AppCompatActivity {
         generationsView.setText(text);
     }
 
+    private void drawButtonClicked(Button button) {
+        setActiveButtonColours(button, getResources());
+        new Handler().postDelayed(() -> setDefaultButtonColours(button, getResources()), 500);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        game.stop();
+    }
 }

@@ -40,6 +40,7 @@ public class Population {
 
     public Population nextGeneration() {
         final Set<Point> allPoints = generatePoints();
+        final Set<Point> alive = new HashSet<>();
         for (Point point : allPoints) {
 
             int liveNeighbours = 0;
@@ -48,17 +49,18 @@ public class Population {
             for (Point livePoint : living) {
                 if (livePoint.equals(point)) {
                     isAliveNow = true;
-                } else if (distanceBetween(point, livePoint) == 1) {
+                } else if (abs(livePoint.getColumn() - point.getColumn()) <= 1 &&
+                        abs(livePoint.getRow() - point.getRow()) <= 1) {
                     liveNeighbours++;
                 }
             }
 
             if (!shouldBeDead(liveNeighbours, isAliveNow)) {
-                allPoints.add(point);
+                alive.add(point);
             }
 
         }
-        return new Population(size, allPoints);
+        return new Population(size, alive);
     }
 
     private Set<Point> generatePoints() {
@@ -74,12 +76,8 @@ public class Population {
         return allPoints;
     }
 
-    private int distanceBetween(final Point a, final Point b) {
-        return abs(a.getColumn() - b.getColumn()) + abs(a.getRow() + b.getRow());
-    }
-
     private boolean shouldBeDead(final int liveNeighbours, final boolean isAliveNow) {
-        return !(liveNeighbours < 2 || liveNeighbours > 3 || (liveNeighbours == 2 && !isAliveNow));
+        return liveNeighbours < 2 || liveNeighbours > 3 || (liveNeighbours == 2 && !isAliveNow);
     }
 
     private boolean isVisible(final Point point) {
