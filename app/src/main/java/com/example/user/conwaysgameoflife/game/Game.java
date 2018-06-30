@@ -51,6 +51,11 @@ public class Game {
         running = true;
     }
 
+    public synchronized void clear() {
+        population = new Population(size, emptySet());
+        selectedPoints.clear();
+    }
+
     public synchronized boolean isRunning() {
         return running;
     }
@@ -71,6 +76,10 @@ public class Game {
             generationNumber++;
         }
         return visible;
+    }
+
+    public synchronized boolean getPointState(final Point point){
+        return population.isAlive(point);
     }
 
     public synchronized int getInterval() {

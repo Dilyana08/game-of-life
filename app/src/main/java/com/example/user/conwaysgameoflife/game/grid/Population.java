@@ -25,6 +25,10 @@ public class Population {
         return visible;
     }
 
+    public boolean isAlive(final Point point) {
+        return living.contains(point);
+    }
+
     public boolean isAlive() {
         for (Point alive : living) {
             if (isVisible(alive)) {
