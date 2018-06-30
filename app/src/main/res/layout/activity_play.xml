@@ -51,7 +51,7 @@
                 tools:ignore="ButtonStyle,UnusedAttribute" />
 
             <TextView
-                android:id="@+id/generationsText"
+                android:id="@+id/generationsTextView"
                 android:layout_width="1dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"

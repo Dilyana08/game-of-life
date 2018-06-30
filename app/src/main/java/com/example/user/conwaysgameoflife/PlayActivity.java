@@ -1,11 +1,13 @@
 package com.example.user.conwaysgameoflife;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
+import android.widget.TextView;
 
 import com.example.user.conwaysgameoflife.game.Game;
 import com.example.user.conwaysgameoflife.game.Renderer;
@@ -56,6 +58,7 @@ public class PlayActivity extends AppCompatActivity {
 
         final Button clearButton = findViewById(R.id.clearButton);
         clearButton.setOnClickListener(this::registerClearButton);
+        handleGenerations();
     }
 
     private void registerClearButton(final View view) {
@@ -80,6 +83,14 @@ public class PlayActivity extends AppCompatActivity {
         final Point point = getPoint(id);
         final boolean active = game.changePointState(point);
         drawGridButton(clicked, active, getResources());
+    }
+
+    @SuppressLint("StringFormatInvalid")
+    private void handleGenerations() {
+        TextView generationsView = findViewById(R.id.generationsTextView);
+        final int generations = game.getGenerationNumber();
+        final String text = getString(R.string.generations, generations);
+        generationsView.setText(text);
     }
 
 }
