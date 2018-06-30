@@ -1,6 +1,8 @@
 package com.example.user.conwaysgameoflife;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -13,6 +15,7 @@ import com.example.user.conwaysgameoflife.game.Game;
 import com.example.user.conwaysgameoflife.game.Renderer;
 import com.example.user.conwaysgameoflife.game.grid.GridCreator;
 import com.example.user.conwaysgameoflife.game.grid.Point;
+import com.example.user.conwaysgameoflife.utils.ColorUtils;
 
 import java.util.Collection;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -26,45 +29,55 @@ public class PlayActivity extends AppCompatActivity {
 
     public static final int SIZE = 15;
 
-    // @TODO get from properties
-    public static final int SPEED_LEVEL = 10;
-
     public final int GRID_ID = R.id.grid;
 
     private final GridCreator presenter;
-    private final Game game;
+
+    private Game game;
     private AtomicBoolean isGameStarted;
 
     private Renderer renderer;
+    private SharedPreferences settings;
 
     public PlayActivity() {
         isGameStarted = new AtomicBoolean(false);
         presenter = new GridCreator();
-        game = new Game(SIZE, SPEED_LEVEL);
+
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play);
+        settings = getSharedPreferences("settings", Context.MODE_PRIVATE);
+
+        final int speed = settings.getInt("interval", MODE_PRIVATE);
+        game = new Game(SIZE, 11 - speed);
 
         final TableLayout grid = findViewById(GRID_ID);
         final Collection<Button> gridButtons = presenter.createGrid(grid, SIZE, R.color.colorBlack);
         for (Button newButton : gridButtons) {
-            setActiveButtonColours(newButton, getResources());
+            setActiveButtonColours(newButton, getResources(), settings);
             newButton.setOnClickListener(this::registerGridButton);
         }
 
-        renderer = new Renderer(getResources(), gridButtons);
+        renderer = new Renderer(getResources(), gridButtons, settings);
 
         final Button clearButton = findViewById(R.id.clearButton);
+        setDefaultButtonColours(clearButton, getResources(), settings);
         clearButton.setOnClickListener(this::registerClearButton);
 
         final Button nextButton = findViewById(R.id.nextButton);
+        setDefaultButtonColours(nextButton, getResources(), settings);
         nextButton.setOnClickListener(this::registerNextButton);
 
         final Button playButton = findViewById(R.id.startButton);
+        setDefaultButtonColours(playButton, getResources(), settings);
         playButton.setOnClickListener(this::registerPlayButton);
+
+        TextView generationsView = findViewById(R.id.generationsTextView);
+        final int colorId = ColorUtils.getColorId(settings);
+        generationsView.setTextColor(getResources().getColor(colorId));
 
         handleGenerations();
     }
@@ -139,7 +152,7 @@ public class PlayActivity extends AppCompatActivity {
 
         final Point point = getPoint(id);
         final boolean active = game.changePointState(point);
-        drawGridButton(clicked, active, getResources());
+        drawGridButton(clicked, active, getResources(), settings);
     }
 
     @SuppressLint("StringFormatInvalid")
@@ -150,9 +163,9 @@ public class PlayActivity extends AppCompatActivity {
         generationsView.setText(text);
     }
 
-    private void drawButtonClicked(Button button) {
-        setActiveButtonColours(button, getResources());
-        new Handler().postDelayed(() -> setDefaultButtonColours(button, getResources()), 500);
+    private void drawButtonClicked(final Button button) {
+        setActiveButtonColours(button, getResources(), settings);
+        new Handler().postDelayed(() -> setDefaultButtonColours(button, getResources(), settings), 500);
     }
 
     @Override
