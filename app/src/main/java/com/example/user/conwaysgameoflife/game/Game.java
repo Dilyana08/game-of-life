@@ -78,7 +78,7 @@ public class Game {
         return visible;
     }
 
-    public synchronized boolean getPointState(final Point point){
+    public synchronized boolean isAlive(final Point point){
         return population.isAlive(point);
     }
 

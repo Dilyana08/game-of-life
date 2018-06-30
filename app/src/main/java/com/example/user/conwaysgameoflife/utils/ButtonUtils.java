@@ -16,4 +16,12 @@ public class ButtonUtils {
         button.setBackgroundColor(resources.getColor(R.color.colorBlack));
         button.setTextColor(resources.getColor(R.color.colorMain));
     }
+
+    public static void drawGridButton(Button button, boolean active, Resources resources) {
+        if (active) {
+            button.setBackgroundColor(resources.getColor(R.color.colorMain));
+        } else {
+            button.setBackgroundColor(resources.getColor(R.color.colorBlack));
+        }
+    }
 }

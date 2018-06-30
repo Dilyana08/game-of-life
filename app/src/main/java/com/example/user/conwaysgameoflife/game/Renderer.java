@@ -4,12 +4,10 @@ import android.content.res.Resources;
 import android.widget.Button;
 
 import com.example.user.conwaysgameoflife.game.grid.Point;
-import com.example.user.conwaysgameoflife.utils.ButtonUtils;
 
 import java.util.Collection;
 
-import static com.example.user.conwaysgameoflife.utils.ButtonUtils.setActiveButtonColours;
-import static com.example.user.conwaysgameoflife.utils.ButtonUtils.setDefaultButtonColours;
+import static com.example.user.conwaysgameoflife.utils.ButtonUtils.drawGridButton;
 
 public class Renderer {
 
@@ -24,11 +22,7 @@ public class Renderer {
     public void render(final Game game) {
         for (Button button : buttons) {
             final Point point = PointsConverter.getPoint(button.getId());
-            if (game.getPointState(point)) {
-                setDefaultButtonColours(button, resources);
-            } else {
-                setActiveButtonColours(button, resources);
-            }
+            drawGridButton(button, game.isAlive(point), resources);
         }
     }
 }
