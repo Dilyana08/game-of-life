@@ -12,18 +12,35 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.user.conwaysgameoflife.utils.ButtonUtils;
+import com.example.user.conwaysgameoflife.utils.ColorUtils;
+
 public class SettingsActivity extends AppCompatActivity {
 
     private int chosenRadioButtonId;
     private int speedValue;
+    private SharedPreferences settings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
 
-        SharedPreferences settings = getSharedPreferences("settings", Context.MODE_PRIVATE);
+        settings = getSharedPreferences("settings", Context.MODE_PRIVATE);
 
+        setCurrentSettings();
+
+        final Button settingsButton = findViewById(R.id.save_button);
+        settingsButton.setOnClickListener(this::saveNewSettings);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        ButtonUtils.setDefaultButtonColours(findViewById(R.id.save_button), getResources(), settings);
+    }
+
+    private void setCurrentSettings() {
         int colorId = settings.getInt("colorId", R.id.greenRadioButton);
         RadioGroup colours = findViewById(R.id.radioGroup);
         colours.check(colorId);
@@ -37,36 +54,10 @@ public class SettingsActivity extends AppCompatActivity {
         int bestRes = settings.getInt("bestResults", 0);
         TextView bestResult = findViewById(R.id.bestResultView);
         bestResult.setText("" + bestRes);
-
-        final Button settingsButton = findViewById(R.id.save_button);
-        settingsButton.setOnClickListener(this::saveNewSettings);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        setDefaultButtonColours(R.id.save_button);
-    }
-
-    // make global
-    private int getColorId(){
-        SharedPreferences settings = getSharedPreferences("settings", Context.MODE_PRIVATE);
-        int colorButtonId = settings.getInt("colorId", R.id.greenRadioButton);
-
-        switch (colorButtonId){
-            case R.id.redRadioButton:
-                return R.color.Red;
-            case R.id.greenRadioButton:
-                return R.color.Green;
-            case R.id.blueRadioButton:
-                return R.color.Blue;
-        }
-
-        return R.color.Green;
     }
 
     private void changeColours() {
-        int colorId = getColorId();
+        int colorId = ColorUtils.getColorId(settings);
 
         TextView settingsText = findViewById(R.id.settingsMenu);
         settingsText.setTextColor(getResources().getColor(colorId));
@@ -95,35 +86,25 @@ public class SettingsActivity extends AppCompatActivity {
 
 
     private void saveNewSettings(@SuppressWarnings("unused") final View ignored) {
-        setActiveButtonColours(R.id.save_button);
+        final Button settingsButton = findViewById(R.id.save_button);
+        ButtonUtils.setActiveButtonColours(settingsButton, getResources(), settings);
 
-        RadioGroup colours = findViewById(R.id.radioGroup);
-        chosenRadioButtonId = colours.getCheckedRadioButtonId();
-        SeekBar speed = findViewById(R.id.speedBar);
-        speedValue = speed.getProgress();
-
-        SharedPreferences settings = getSharedPreferences("settings", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = settings.edit();
-        editor.putInt("colorId", chosenRadioButtonId);
-        editor.putInt("interval", speedValue);
-        editor.apply();
+        writeSettings();
 
         Toast.makeText(this, "Settings were saved", Toast.LENGTH_LONG).show();
         finish();
     }
 
-    private void setDefaultButtonColours(final int id) {
-        final Button button = findViewById(id);
-        int colorId = getColorId();
-        button.setBackgroundColor(getResources().getColor(colorId));
-        button.setTextColor(getResources().getColor(R.color.colorBlack));
-    }
+    private void writeSettings() {
+        RadioGroup colours = findViewById(R.id.radioGroup);
+        chosenRadioButtonId = colours.getCheckedRadioButtonId();
 
-    private void setActiveButtonColours(final int id) {
-        Button button = findViewById(id);
-        int colorId = getColorId();
-        button.setBackgroundColor(getResources().getColor(R.color.colorBlack));
-        button.setTextColor(getResources().getColor(colorId));
-    }
+        SeekBar speed = findViewById(R.id.speedBar);
+        speedValue = speed.getProgress();
 
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putInt("colorId", chosenRadioButtonId);
+        editor.putInt("interval", speedValue);
+        editor.apply();
+    }
 }
