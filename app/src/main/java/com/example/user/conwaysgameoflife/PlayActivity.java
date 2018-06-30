@@ -29,8 +29,6 @@ public class PlayActivity extends AppCompatActivity {
 
     public static final int SIZE = 15;
 
-    public final int GRID_ID = R.id.grid;
-
     private final GridCreator presenter;
 
     private Game game;
@@ -54,7 +52,7 @@ public class PlayActivity extends AppCompatActivity {
         final int speed = settings.getInt("interval", MODE_PRIVATE);
         game = new Game(SIZE, 11 - speed);
 
-        final TableLayout grid = findViewById(GRID_ID);
+        final TableLayout grid = findViewById(R.id.grid);
         final Collection<Button> gridButtons = presenter.createGrid(grid, SIZE, R.color.colorBlack);
         for (Button newButton : gridButtons) {
             setActiveButtonColours(newButton, getResources(), settings);
@@ -83,23 +81,31 @@ public class PlayActivity extends AppCompatActivity {
     }
 
     private void registerClearButton(final View view) {
-        if (isGameStarted.get()) {
-            return;
-        }
         final Button button = (Button) view;
+        if (isGameStarted.get()) {
+            isGameStarted.set(false);
+            game.restart();
+            drawButtonClicked(button);
+            button.setText(R.string.clear_grid);
 
-        game.clear();
+            final Button playButton = findViewById(R.id.startButton);
+            playButton.setText(R.string.start);
+            handleGenerations();
+        } else {
+            game.clear();
+            drawButtonClicked(button);
+        }
         renderer.render(game);
-        drawButtonClicked(button);
+
     }
 
     private void registerPlayButton(final View view) {
-
-
         final boolean result = isGameStarted.compareAndSet(false, true);
         final Button button = (Button) view;
         if (result) {
             button.setText(R.string.pause);
+            final Button restart = findViewById(R.id.clearButton);
+            restart.setText(R.string.restart);
             game.start();
             gameLoop();
         } else if (game.isRunning()) {

@@ -55,6 +55,12 @@ public class Game {
         selectedPoints.clear();
     }
 
+    public synchronized void restart() {
+        running = false;
+        generationNumber = 0;
+        clear();
+    }
+
     public synchronized boolean isRunning() {
         return running;
     }
@@ -64,7 +70,6 @@ public class Game {
     }
 
     public synchronized boolean nextGeneration() {
-        System.out.println("Stay'n alive");
         if (!population.isAlive()) {
             stop();
             return false;

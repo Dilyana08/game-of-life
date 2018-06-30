@@ -19,4 +19,5 @@
     <string name="blue_color_choice">Blue</string>
     <string name="green_color_choice">Green</string>
     <string name="red_color_choice">Red</string>
+    <string name="restart">Restart</string>
 </resources>
