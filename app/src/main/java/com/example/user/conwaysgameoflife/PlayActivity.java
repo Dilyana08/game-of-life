@@ -27,7 +27,8 @@ import static com.example.user.conwaysgameoflife.utils.ButtonUtils.setDefaultBut
 
 public class PlayActivity extends AppCompatActivity {
 
-    public static final int SIZE = 15;
+    public static final int MIN_SIZE = 8;
+    public static final int MAX_SPEED = 11;
 
     private final GridCreator presenter;
 
@@ -50,10 +51,11 @@ public class PlayActivity extends AppCompatActivity {
         settings = getSharedPreferences("settings", Context.MODE_PRIVATE);
 
         final int speed = settings.getInt("interval", MODE_PRIVATE);
-        game = new Game(SIZE, 11 - speed);
+        int gridSize = settings.getInt("size", MODE_PRIVATE) + MIN_SIZE;
+        game = new Game(gridSize, MAX_SPEED - speed);
 
         final TableLayout grid = findViewById(R.id.grid);
-        final Collection<Button> gridButtons = presenter.createGrid(grid, SIZE, R.color.colorBlack);
+        final Collection<Button> gridButtons = presenter.createGrid(grid, gridSize, R.color.colorBlack);
         for (Button newButton : gridButtons) {
             setActiveButtonColours(newButton, getResources(), settings);
             newButton.setOnClickListener(this::registerGridButton);
